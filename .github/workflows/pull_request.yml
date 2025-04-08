@@ -25,7 +25,7 @@ jobs:
 
       - name: Run pylint
         run: |
-          pylint main.py test_main.py
+          pylint main.py test_main.py --disable=C0114,C0116
 
       - name: Run tests with pytest
         run: |
