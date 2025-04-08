@@ -1,7 +1,7 @@
 """Test file for FastAPI app"""
 
 from fastapi.testclient import TestClient
-from main import app
+from fastapi_pr_demo.main import app
 
 client = TestClient(app)
 
