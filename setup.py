@@ -9,6 +9,10 @@ setup(
         "uvicorn",
         "httpx"
     ],
+    include_package_data=True,
+    description="A simple FastAPI app packaged for CI/CD demo",
+    author="DevopsIntern2025",
+    author_email="babitharani.s@gmail.com",
     entry_points={
         "console_scripts": [
             "fastapi-pr-demo=fastapi_pr_demo.main:app",
