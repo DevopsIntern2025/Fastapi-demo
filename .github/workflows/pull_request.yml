@@ -37,7 +37,7 @@ jobs:
           python -m build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
+        uses: github.com/actions/upload-artifact@v2
         with:
-          name: fastapi-pr-demo-package
+          name: my-artifact
           path: dist/
