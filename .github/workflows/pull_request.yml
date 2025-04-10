@@ -28,6 +28,9 @@ jobs:
         run: |
           pylint fastapi_pr_demo/*.py tests/*.py --fail-under=7.0
 
+      - name: Add project root to PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+
       - name: Run tests with pytest
         run: |
           pytest
