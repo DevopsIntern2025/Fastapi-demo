@@ -1,4 +1,4 @@
-name: Pull Request Automation
+name: Pull Request CI
 
 on:
   pull_request:
@@ -6,27 +6,41 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.8'  # Specify your Python version
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pylint
+          pip install pytest pylint build
 
       - name: Lint with pylint
         run: |
-          pylint fastapi_pr_demo/*.py test_main.py --fail-under=7.0
+          pylint fastapi_pr_demo/*.py tests/*.py --fail-under=7.0
+
+      - name: Add project root to PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
       - name: Run tests with pytest
         run: |
           pytest
+
+      - name: Build package
+        run: |
+          python -m build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: dist/
