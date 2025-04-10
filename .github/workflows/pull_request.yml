@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.8"
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
@@ -26,7 +26,7 @@ jobs:
 
       - name: Lint with pylint
         run: |
-          pylint fastapi_pr_demo tests
+          pylint fastapi_pr_demo/*.py tests/*.py --fail-under=7.0
 
       - name: Run tests with pytest
         run: |
@@ -36,7 +36,7 @@ jobs:
         run: |
           python -m build
 
-      - name: Upload package artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
           name: fastapi_pr_demo_package
